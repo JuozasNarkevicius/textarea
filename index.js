@@ -1,5 +1,5 @@
 let minRows = 2;
-let maxRows = 5;
+let maxRows = 6;
 
 window.onload = init;
 
@@ -11,11 +11,11 @@ function init() {
 
 function autoResize() {
     if (this.clientHeight < this.scrollHeight && this.rows < maxRows) {
-        console.log(this.rows, maxRows);
         this.rows++;
     }
-    if (this.value.length > (minRows - 1) * this.cols + 2) {
+    else if (this.value.length >= minRows * (this.cols + 2)) {
         const rows = Math.ceil(this.value.length / (this.cols + 2));
+        console.log(this.value.length, this.cols + 2);
         if (rows <= maxRows) {
             this.rows = rows;
         }
