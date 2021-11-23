@@ -10,14 +10,23 @@ function init() {
 }
 
 function autoResize() {
-    if (this.clientHeight < this.scrollHeight && this.rows < maxRows) {
-        this.rows++;
-    }
-    else if (this.value.length >= minRows * (this.cols + 2)) {
-        const rows = Math.ceil(this.value.length / (this.cols + 2));
-        console.log(this.value.length, this.cols + 2);
-        if (rows <= maxRows) {
-            this.rows = rows;
+    const content = this.value.split('\n');
+    let count = 0;
+
+    for (let i = 0; i < content.length; i++) {
+        let additionalRows = Math.ceil(content[i].length / (this.cols + 2));
+        if(additionalRows === 0) {
+            additionalRows = 1;
         }
+        count += additionalRows;
     }
+    
+    if (count < minRows) {
+        count = minRows
+    }
+    if (count > maxRows) {
+        count = maxRows;
+    }
+
+    this.rows = count;
 }
